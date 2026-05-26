@@ -27,6 +27,7 @@ To run the model on a folder with images, run with the following command
 python binarize.py <path to checkpoint> --src <path to the test images folder> 
 --dst <path to the output folder>
 ```
+Checkpoints contain training metadata and are loaded with pickle compatibility for PyTorch 2.6 and later. Only run inference with a checkpoint downloaded from this repository or another trusted source.
 
 ## Training
 The model is trained on patches, then evaluated and tested on complete documents. We provide the code to create the patches and train the model.

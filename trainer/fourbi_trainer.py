@@ -36,7 +36,10 @@ class FourbiTrainingModule:
         self.checkpoint = None
 
         if 'resume' in self.config:
-            self.checkpoint = torch.load(config['resume'], map_location=device)
+            # Checkpoints include optimizer/config and Python/NumPy RNG state, so they
+            # are not compatible with the weights-only loader default in PyTorch 2.6+.
+            # Only load checkpoints from a trusted source.
+            self.checkpoint = torch.load(config['resume'], map_location=device, weights_only=False)
             checkpoint_config = self.checkpoint['config'] if 'config' in self.checkpoint else {}
             if 'train_data_path' in checkpoint_config:
                 del checkpoint_config['train_data_path']

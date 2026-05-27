@@ -219,8 +219,15 @@ def main():
     args = parser.parse_args()
 
     args.device_id = 0 if args.device_id is None else args.device_id
-    args.device = torch.device(f'cuda:{args.device_id}')
-    args.device_name = torch.cuda.get_device_name(args.device_id) if torch.cuda.is_available() else 'CPU'
+    if torch.cuda.is_available():
+        args.device = torch.device(f'cuda:{args.device_id}')
+        args.device_name = torch.cuda.get_device_name(args.device_id)
+    elif torch.backends.mps.is_available():
+        args.device = torch.device('mps')
+        args.device_name = 'Apple MPS'
+    else:
+        args.device = torch.device('cpu')
+        args.device_name = 'CPU'
 
     logger.info("Start process ...")
 

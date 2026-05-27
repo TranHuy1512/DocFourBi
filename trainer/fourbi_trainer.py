@@ -111,11 +111,14 @@ class FourbiTrainingModule:
             random.setstate(self.checkpoint['random_settings']['random_rng_state'])
             np.random.set_state(self.checkpoint['random_settings']['numpy_rng_state'])
             torch.set_rng_state(self.checkpoint['random_settings']['torch_rng_state'].type(torch.ByteTensor))
-            torch.cuda.set_rng_state(self.checkpoint['random_settings']['cuda_rng_state'].type(torch.ByteTensor))
+            cuda_rng_state = self.checkpoint['random_settings'].get('cuda_rng_state')
+            if torch.cuda.is_available() and cuda_rng_state is not None:
+                torch.cuda.set_rng_state(cuda_rng_state.type(torch.ByteTensor))
 
     def _save_checkpoint(self, model_state_dict, root_folder, filename: str):
         random_settings = {'random_rng_state': random.getstate(), 'numpy_rng_state': np.random.get_state(),
-                           'torch_rng_state': torch.get_rng_state(), 'cuda_rng_state': torch.cuda.get_rng_state(),
+                           'torch_rng_state': torch.get_rng_state(),
+                           'cuda_rng_state': torch.cuda.get_rng_state() if torch.cuda.is_available() else None,
                            'seed': self.seed}
 
         checkpoint = {

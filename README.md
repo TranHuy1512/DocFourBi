@@ -1,124 +1,237 @@
-# FourBi
+<div align="center">
 
-This repository contains the official implementation for our paper [Binarizing Documents by Leveraging both Space and Frequency](https://arxiv.org/abs/2404.17243).
-If you find it useful, please cite it as:
+# ✦ FourBi
+
+### *See the Unseen. Restore the Unreadable.*
+
+**A deep learning model that breathes new life into degraded document images —**
+**by thinking in two dimensions at once.**
+
+<br/>
+
+[![Demo](https://img.shields.io/badge/🤗%20Live%20Demo-Hugging%20Face-yellow?style=for-the-badge)](https://huggingface.co/spaces/elnino1512/AI-Document-image-enhencement)
+[![Dataset](https://img.shields.io/badge/📦%20Dataset-Kaggle-blue?style=for-the-badge)](https://www.kaggle.com/datasets/elnino1512/final-dataset-binarization)
+[![Paper](https://img.shields.io/badge/📄%20Paper-ICDAR%202024-red?style=for-the-badge)](#citation)
+[![License](https://img.shields.io/badge/License-Research-green?style=for-the-badge)](#)
+
+<br/>
+
+> *"A water-stained manuscript. A centuries-old receipt. A faded letter from someone who mattered.*
+> *FourBi was built for exactly these moments."*
+
+<br/>
+
+---
+
+</div>
+
+## The Problem Worth Solving
+
+Every library, every archive, every hospital records room holds documents that are slowly disappearing — blurred by time, stained by water, faded by light, degraded by age. Standard binarization tools treat these images like puzzles with missing pieces. **FourBi treats them like signals with hidden structure.**
+
+Most models look at a document and ask: *what do the pixels look like?*
+
+FourBi asks a deeper question: **what does the document *mean* — in space, and in frequency?**
+
+---
+
+## How It Works
+
+<div align="center">
+
+![FourBi Architecture](docs/architecture.png)
+
+</div>
+
+FourBi is inspired by the ICDAR 2024 paper **"Binarizing Documents by Leveraging both Space and Frequency"**. Its key insight is elegant:
+
+- **Spatial domain** → captures local structure, edges, and texture
+- **Frequency domain** → captures global patterns, periodic noise, and signal consistency
+
+By fusing both perspectives simultaneously, FourBi achieves binarization quality that neither approach reaches alone — especially on the most challenging real-world documents.
+
+---
+
+## Quick Start
+
+**1. Set up your environment**
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
 ```
+
+**2. Install dependencies**
+
+```bash
+pip install opencv-python wandb pytorch-ignite
+```
+
+**3. Install PyTorch** *(match your CUDA version)*
+
+```bash
+pip install torch torchvision torchaudio
+```
+
+**4. Run inference**
+
+Open [`demo.ipynb`](demo.ipynb) and follow the notebook — your first restored document is minutes away.
+
+---
+
+## Project Structure
+
+```
+FourBi/
+│
+├── 📄 binarize.py              ← Run inference on any document image
+├── 🧩 create_patches.py        ← Prepare training patches from raw data
+├── 🚀 train.py                 ← Training entry point
+│
+├── 📂 data/                    ← Dataset loaders and augmentation pipelines
+├── 📂 modules/                 ← Core model architecture (spatial + frequency)
+├── 📂 trainer/                 ← Training loop, validation, loss, and optimizer
+├── 📂 utils/                   ← Logging and experiment utilities
+│
+└── 📂 docs/
+    └── architecture.png        ← Visual overview of the model
+```
+
+---
+
+## Try It Now
+
+No setup required — the live demo on Hugging Face Spaces lets you upload any document image and see FourBi restore it in seconds.
+
+👉 **[Open the Live Demo](https://huggingface.co/spaces/elnino1512/AI-Document-image-enhencement)**
+
+---
+
+## Dataset
+
+The training dataset is publicly available on Kaggle, curated specifically for document binarization research:
+
+👉 **[Final Dataset Binarization](https://www.kaggle.com/datasets/elnino1512/final-dataset-binarization)**
+
+After downloading, organize it according to the structure expected by [`create_patches.py`](create_patches.py) and the training scripts.
+
+---
+
+## Training
+
+Full multi-dataset training is documented in:
+
+👉 **[`train_multi_dataset.ipynb`](train_multi_dataset.ipynb)**
+
+---
+
+## Citation
+
+If FourBi contributes to your research, please credit the original authors:
+
+```bibtex
 @inproceedings{quattrini2024binarizing,
-  title={Binarizing Documents by Leveraging both Space and Frequency},
-  author={Quattrini, Fabio and Pippi, Vittorio and Cascianelli, Silvia and Cucchiara, Rita},
-  booktitle={International Conference on Document Analysis and Recognition},
-  pages={3--22},
-  year={2024},
-  organization={Springer}
+  title     = {Binarizing Documents by Leveraging both Space and Frequency},
+  author    = {Quattrini, Fabio and Pippi, Vittorio and Cascianelli, Silvia and Cucchiara, Rita},
+  booktitle = {International Conference on Document Analysis and Recognition},
+  pages     = {3--22},
+  year      = {2024},
+  organization = {Springer}
 }
 ```
 
-## Setup
-To run this project, we used `python 3.11.7` and `pytorch 2.2.0` 
+---
+
+## About This Repository
+
+This is a **rebuilt** version of FourBi — reconstructed from the original authors' work with the goal of making the source code cleaner, more reproducible, and easier to extend for future research. The core architecture, research direction, and intellectual contribution belong entirely to the original FourBi team.
+
+This rebuild exists to honor that work, not replace it.
+
+---
+
+<div align="center">
+
+**Questions? Ideas? Found a broken document FourBi couldn't handle?**
+
+Reach out at **tdhuy1512@gmail.com**
+
+<br/>
+
+*Built with care for the documents that deserve to be read again.*
+
+</div>
+
+---
+
+<details>
+<summary>🇻🇳 Phiên bản Tiếng Việt</summary>
+
+<br/>
+
+## Câu Chuyện Đằng Sau FourBi
+
+Trong mỗi thư viện, mỗi kho lưu trữ, mỗi phòng hồ sơ đều có những tài liệu đang dần biến mất — bị mờ theo thời gian, ố vàng vì nước, phai màu dưới ánh sáng. Các công cụ nhị phân hóa thông thường xử lý những ảnh này như những mảnh ghép bị thiếu. **FourBi tiếp cận chúng như những tín hiệu ẩn chứa cấu trúc sâu xa hơn.**
+
+Hầu hết mô hình nhìn vào một tài liệu và hỏi: *các điểm ảnh trông như thế nào?*
+
+FourBi đặt câu hỏi sâu hơn: **tài liệu này *có nghĩa gì* — trong miền không gian, và trong miền tần số?**
+
+---
+
+## Cách Hoạt Động
+
+FourBi lấy cảm hứng từ bài báo ICDAR 2024 **"Binarizing Documents by Leveraging both Space and Frequency"**. Ý tưởng cốt lõi thật thanh lịch:
+
+- **Miền không gian** → nắm bắt cấu trúc cục bộ, cạnh, và kết cấu
+- **Miền tần số** → nắm bắt mẫu toàn cục, nhiễu tuần hoàn, và tính nhất quán của tín hiệu
+
+Bằng cách kết hợp đồng thời cả hai góc nhìn, FourBi đạt được chất lượng nhị phân hóa mà riêng mỗi hướng tiếp cận đều không thể đạt được — đặc biệt trên những tài liệu thực tế khó xử lý nhất.
+
+---
+
+## Cài Đặt Nhanh
+
 ```bash
-conda create -n fourbi python=3.11.7
-conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
-pip3 install opencv-python wandb pytorch-ignite
+# Tạo môi trường ảo
+python3 -m venv venv
+source venv/bin/activate
+
+# Cài đặt thư viện
+pip install opencv-python wandb pytorch-ignite
+
+# Cài đặt PyTorch (khớp với phiên bản CUDA của bạn)
+pip install torch torchvision torchaudio
 ```
 
-## Inference
-To run the model on a folder with images, run with the following command
-```
-python binarize.py <path to checkpoint> --src <path to the test images folder> 
---dst <path to the output folder>
-```
-Checkpoints contain training metadata and are loaded with pickle compatibility for PyTorch 2.6 and later. Only run inference with a checkpoint downloaded from this repository or another trusted source.
+Mở [`demo.ipynb`](demo.ipynb) để chạy inference ngay lập tức.
 
-## Training
-The model is trained on patches, then evaluated and tested on complete documents. We provide the code to create the patches and train the model.
-For example, to train on H-DIBCO12, first download the dataset from http://utopia.duth.gr/~ipratika/HDIBCO2012/benchmark/. Create a folder, then place the images in a sub-folder named "imgs" and the ground truth in a sub-folder named "gt_imgs". Then run the following command:
-```
-python create_patches.py --path_src <path to the dataset folder> 
---path_dst <path to the folder where the patches will be saved> 
---patch_size <size of the patches> --overlap_size <size of the overlap>
-```
-To launch the training, run the following command:
-```
-python train.py --datasets_paths <all datasets paths> 
---eval_dataset_name <name of the validation dataset> 
---test_dataset_name <name of the validation dataset>
-```
+---
 
-## Models
-We release the pre-trained weights for the FourBi variants trained on DIBCO benchmarks. 
+## Huấn Luyện
 
-<!-- <style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-baqh{text-align:center;vertical-align:top}
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
-.tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-</style> -->
-<table class="tg">
-<thead>
-  <tr>
-    <th class="tg-c3ow"></th>
-    <th class="tg-c3ow">Testing data</th>
-    <th class="tg-c3ow">URL</th>
-    <th class="tg-baqh">PSNR</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="tg-c3ow">0</td>
-    <td class="tg-c3ow">H-DIBCO 2010</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/9e1a_HDIBCO10.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">23.37</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">1</td>
-    <td class="tg-c3ow">DIBCO 2011</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/b9cd_DIBCO11.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">22.26</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">2</td>
-    <td class="tg-c3ow">H-DIBCO 2012</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/0f90_HDIBCO12.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">24.29</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">3</td>
-    <td class="tg-c3ow">DIBCO 2013</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/ed5a_DIBCO13.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">24.17</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">4</td>
-    <td class="tg-c3ow">H-DIBCO 2014</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/2bd8_HDIBCO14.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">25.18</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">5</td>
-    <td class="tg-c3ow">H-DIBCO 2016</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/c004_HDIBCO16.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">19.74</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">6</td>
-    <td class="tg-c3ow">DIBCO 2017</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/b2d1_DIBCO17.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">19.66</td>
-  </tr>
-  <tr>
-    <td class="tg-c3ow">7</td>
-    <td class="tg-c3ow">H-DIBCO 2018</td>
-    <td class="tg-c3ow"><a href="https://github.com/aimagelab/FourBi_7/releases/download/Checkpoints/3d22_HDIBCO18.pth" target="_blank" rel="noopener noreferrer">model</a></td>
-    <td class="tg-amwm">20.92</td>
-  </tr>
+Huấn luyện với nhiều dataset được cung cấp qua notebook:
 
+[`train_multi_dataset.ipynb`](train_multi_dataset.ipynb)
 
-</tbody>
-</table>
+---
 
+## Dataset
 
- 
+Dataset huấn luyện được công bố công khai tại Kaggle:
+
+[Final Dataset Binarization](https://www.kaggle.com/datasets/elnino1512/final-dataset-binarization)
+
+---
+
+## Về Repository Này
+
+Đây là phiên bản **rebuild** của FourBi — được tái dựng từ công trình của nhóm tác giả gốc với mục tiêu làm cho mã nguồn sạch hơn, dễ tái lập hơn, và dễ mở rộng hơn cho nghiên cứu tương lai. Kiến trúc cốt lõi, hướng nghiên cứu, và đóng góp trí tuệ hoàn toàn thuộc về nhóm FourBi ban đầu.
+
+Bản rebuild này tồn tại để tôn vinh công trình đó, không phải thay thế nó.
+
+---
+
+**Liên hệ:** tdhuy1512@gmail.com
+
+</details>
